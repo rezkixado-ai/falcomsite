@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title id="pageTitle">Artikel — Falcom Technology</title>
+<meta name="description" id="pageDesc" content="Artikel Falcom Technology">
+<meta name="theme-color" content="#0B0E14">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+  .article-hero{background:var(--ink);padding:160px 0 60px;color:#fff}
+  .article-hero .eyebrow{color:var(--cyan)}
+  .article-hero .eyebrow::before{background:var(--cyan)}
+  .article-hero h1{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:14px}
+  .article-hero .meta{color:rgba(255,255,255,.6);font-size:.88rem;font-family:var(--font-mono)}
+  .article-cover{margin:-40px auto 0;max-width:900px;padding:0 24px}
+  .article-cover img{border-radius:var(--radius);width:100%;aspect-ratio:16/9;object-fit:cover}
+  .article-body{max-width:720px;margin:0 auto;padding:56px 24px;font-size:1.02rem;color:#2b2f38}
+  .article-body p{margin:0 0 18px}
+  .back-link{display:inline-flex;gap:8px;align-items:center;color:rgba(255,255,255,.75);font-size:.85rem;margin-bottom:20px}
+</style>
+</head>
+<body>
+<nav class="site-nav is-solid"><div class="container">
+  <a href="/#top" class="brand"><img src="/img/falcom-logo-navbar.png" alt="Falcom Technology" class="brand-logo"></a>
+  <ul class="nav-links"><li><a href="/#tentang">Tentang</a></li><li><a href="/#jaringan">Jaringan</a></li><li><a href="/#produk">Produk</a></li><li><a href="/#artikel">Artikel</a></li><li><a href="/#kontak">Kontak</a></li></ul>
+</div></nav>
+
+<section class="article-hero">
+  <div class="container">
+    <a href="/#artikel" class="back-link">&larr; Kembali ke artikel</a>
+    <div class="eyebrow" id="artCategory">Artikel</div>
+    <h1 id="artTitle">Memuat...</h1>
+    <div class="meta" id="artMeta"></div>
+  </div>
+</section>
+<div class="article-cover"><img id="artCover" src="" alt=""></div>
+<article class="article-body" id="artContent"></article>
+
+<footer><div class="container footer-row"><span>&copy; <span id="year"></span> Falcom Technology.</span><span>Elevate Connectivity Across Indonesia</span></div></footer>
+
+<script>
+(async () => {
+  const slug = location.pathname.split('/').pop();
+  document.getElementById('year').textContent = new Date().getFullYear();
+  try {
+    const res = await fetch(`/api/articles/${slug}`);
+    if (!res.ok) throw new Error('not found');
+    const a = await res.json();
+    document.title = `${a.title} — Falcom Technology`;
+    document.getElementById('pageTitle').textContent = `${a.title} — Falcom Technology`;
+    document.getElementById('pageDesc').setAttribute('content', a.excerpt || '');
+    document.getElementById('artCategory').textContent = a.category || 'Artikel';
+    document.getElementById('artTitle').textContent = a.title;
+    document.getElementById('artMeta').textContent = `${a.author} · ${new Date(a.publish_at || a.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+    document.getElementById('artCover').src = a.cover_image || '/img/article-1.svg';
+    document.getElementById('artContent').innerHTML = a.content || '';
+  } catch (e) {
+    document.getElementById('artTitle').textContent = 'Artikel tidak ditemukan';
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CMS — Falcom Technology</title>
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="admin-brand"><span class="dot"></span> Falcom <strong>CMS</strong></div>
+    <nav class="admin-nav">
+      <button data-panel="dashboard" class="is-active">Ringkasan</button>
+      <button data-panel="hero">Hero Slider</button>
+      <button data-panel="stats">Statistik</button>
+      <button data-panel="network">Jaringan Penjualan</button>
+      <button data-panel="clients">Klien</button>
+      <button data-panel="videos">Video Tutorial</button>
+      <button data-panel="products">Produk</button>
+      <button data-panel="categories">Kategori Produk</button>
+      <button data-panel="solution_categories">Kategori Solusi</button>
+      <button data-panel="solutions">Solusi</button>
+      <button data-panel="testimonials">Testimoni</button>
+      <button data-panel="articles">Artikel</button>
+      <button data-panel="chatbot">Chatbot Q&amp;A</button>
+      <button data-panel="chatlogs">Log Chat</button>
+      <button data-panel="settings">Pengaturan</button>
+    </nav>
+    <button class="admin-logout" id="logoutBtn">Keluar</button>
+  </aside>
+
+  <main class="admin-main">
+    <header class="admin-topbar">
+      <h1 id="panelTitle">Ringkasan</h1>
+      <span class="admin-user" id="adminUser"></span>
+    </header>
+
+    <section class="panel is-active" data-panel="dashboard">
+      <div class="cards-row" id="summaryCards"></div>
+      <p class="hint">Selamat datang. Gunakan menu di samping untuk mengelola konten website — perubahan langsung tampil di website publik.</p>
+    </section>
+
+    <section class="panel" data-panel="hero">
+      <div class="panel-head"><p>Kelola slide pada hero banner beranda.</p><button class="btn-solid" data-add="hero_slides">+ Tambah Slide</button></div>
+      <div id="heroList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="stats">
+      <div class="panel-head"><p>Angka pencapaian dengan animasi counter di halaman Tentang.</p><button class="btn-solid" data-add="stats">+ Tambah Statistik</button></div>
+      <div id="statsList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="network">
+      <div class="panel-head"><p>Titik jaringan penjualan/distribusi. Koordinat peta dalam persen (0–100) posisi X/Y pada ilustrasi peta.</p><button class="btn-solid" data-add="sales_network">+ Tambah Kota</button></div>
+      <div id="networkAdminList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="clients">
+      <div class="panel-head"><p>Logo klien pada conveyor.</p><button class="btn-solid" data-add="clients">+ Tambah Klien</button></div>
+      <div id="clientsList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="videos">
+      <div class="panel-head"><p>Video tutorial YouTube yang tampil di beranda.</p><button class="btn-solid" data-add="videos">+ Tambah Video</button></div>
+      <div id="videosList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="products">
+      <div class="panel-head"><p>Katalog produk. Centang "Tampilkan di beranda" untuk menjadikannya produk unggulan yang muncul di homepage.</p><button class="btn-solid" data-add="products">+ Tambah Produk</button></div>
+      <div id="productsList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="categories">
+      <div class="panel-head"><p>Kategori yang tampil di sidebar halaman /products.</p><button class="btn-solid" data-add="categories">+ Tambah Kategori</button></div>
+      <div id="categoriesList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="solution_categories">
+      <div class="panel-head"><p>Tab kategori solusi di section System Solution beranda.</p><button class="btn-solid" data-add="solution_categories">+ Tambah Kategori Solusi</button></div>
+      <div id="solutionCategoriesList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="solutions">
+      <div class="panel-head"><p>Kartu solusi yang tampil per kategori di section System Solution.</p><button class="btn-solid" data-add="solutions">+ Tambah Solusi</button></div>
+      <div id="solutionsList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="testimonials">
+      <div class="panel-head"><p>Testimoni pelanggan yang tampil di beranda (carousel).</p><button class="btn-solid" data-add="testimonials">+ Tambah Testimoni</button></div>
+      <div id="testimonialsList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="articles">
+      <div class="panel-head"><p>Tulis dan jadwalkan artikel. Status <em>Terjadwal</em> akan tayang otomatis pada tanggal publikasi.</p><button class="btn-solid" data-add="articles">+ Tulis Artikel</button></div>
+      <div id="articlesList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="chatbot">
+      <div class="panel-head"><p>Latih chatbot: setiap entri punya kata kunci (pisahkan koma) dan jawaban. Semakin banyak entri, semakin pintar chatbot.</p><button class="btn-solid" data-add="chatbot_qa">+ Tambah Respons</button></div>
+      <div id="chatbotList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="chatlogs">
+      <div class="panel-head"><p>Riwayat percakapan pengunjung dengan chatbot.</p></div>
+      <div id="chatlogsList" class="list"></div>
+    </section>
+
+    <section class="panel" data-panel="settings">
+      <form id="settingsForm" class="settings-form">
+        <label>Opacity Background Navbar (0 = transparan penuh, 1 = solid)
+          <input type="range" name="nav_opacity" min="0" max="1" step="0.05">
+          <span class="range-value" id="navOpacityValue">0</span>
+        </label>
+        <label>Template Navbar
+          <select name="nav_style">
+            <option value="default">Default — tombol "Hubungi Kami"</option>
+            <option value="lang_toggle">Toggle Bahasa ID/EN — tanpa tombol "Hubungi Kami"</option>
+          </select>
+        </label>
+        <label>Model Kartu Testimoni
+          <select name="testimonial_style">
+            <option value="style1">Model 1 — foto bulat, kutipan tebal + italic</option>
+            <option value="style2">Model 2 — kartu horizontal, kutipan besar di kiri, foto di kanan</option>
+          </select>
+        </label>
+        <p class="hint" style="margin:-8px 0 4px">Toggle bahasa ID/EN saat ini baru berupa tombol switch di navbar (belum
+          menerjemahkan isi konten situs — itu fitur terpisah yang lebih besar).</p>
+        <label>Nomor WhatsApp Admin (format 62xxxxxxxxxx)<input type="text" name="wa_admin_number"></label>
+        <label>Batas Gagal Chatbot Sebelum Diarahkan ke WA<input type="number" name="chat_fail_limit" min="1" max="10"></label>
+        <label>Email Kontak<input type="email" name="contact_email"></label>
+        <label>Telepon Kontak<input type="text" name="contact_phone"></label>
+        <label>Alamat Kantor Pusat<textarea name="hq_address" rows="2"></textarea></label>
+        <h3>Background Halaman Login CMS</h3>
+        <p class="hint" style="margin:-8px 0 4px">Isi 1–3 gambar. Kalau lebih dari 1, background akan bergantian otomatis di halaman login.</p>
+        <label>Background 1
+          <div class="upload-row">
+            <input type="file" accept="image/*,video/*" data-upload-for="login_bg_1">
+          </div>
+          <input type="hidden" name="login_bg_1">
+        </label>
+        <label>Background 2
+          <div class="upload-row">
+            <input type="file" accept="image/*,video/*" data-upload-for="login_bg_2">
+          </div>
+          <input type="hidden" name="login_bg_2">
+        </label>
+        <label>Background 3
+          <div class="upload-row">
+            <input type="file" accept="image/*,video/*" data-upload-for="login_bg_3">
+          </div>
+          <input type="hidden" name="login_bg_3">
+        </label>
+        <button type="submit" class="btn-solid">Simpan Pengaturan</button>
+        <p class="save-msg" id="settingsMsg"></p>
+      </form>
+
+      <form id="passwordForm" class="settings-form" style="margin-top:32px">
+        <h3>Ganti Password</h3>
+        <label>Password Saat Ini<input type="password" name="current_password" required></label>
+        <label>Password Baru (min. 8 karakter)<input type="password" name="new_password" required></label>
+        <button type="submit" class="btn-outline">Ubah Password</button>
+        <p class="save-msg" id="passwordMsg"></p>
+      </form>
+    </section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modal">
+    <div class="modal-head"><h3 id="modalTitle">Tambah</h3><button id="modalClose">&times;</button></div>
+    <form id="modalForm" class="modal-form"></form>
+  </div>
+</div>
+
+<script src="/admin/admin.js" defer data-page="dashboard"></script>
+</body>
+</html>

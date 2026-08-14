@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="500" viewBox="0 0 700 500">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#101725"/><stop offset="1" stop-color="#1c2536"/></linearGradient></defs>
+<rect width="700" height="500" fill="url(#g)"/>
+<text x="30" y="450" font-family="monospace" font-size="20" fill="#E60012" opacity="0.85">FTTH PON Solution</text>
+<text x="30" y="40" font-family="monospace" font-size="13" fill="#ffffff" opacity="0.4">SOLUTION DIAGRAM PLACEHOLDER</text>
+</svg>

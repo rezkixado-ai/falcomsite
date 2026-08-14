@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480">
+<rect width="640" height="480" fill="#0B0E14"/>
+<g stroke="#00C2FF" stroke-opacity="0.3" fill="none" stroke-width="2">
+<circle cx="320" cy="240" r="140"/>
+<circle cx="320" cy="240" r="90"/>
+<circle cx="320" cy="240" r="40"/>
+</g>
+<text x="40" y="440" font-family="monospace" font-size="14" fill="#ffffff" opacity="0.35">NETWORK INFRASTRUCTURE ILLUSTRATION PLACEHOLDER</text>
+</svg>

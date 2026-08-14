@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title id="pageTitle">Produk — Falcom Technology</title>
+<meta name="description" id="pageDesc" content="Detail produk Falcom Technology">
+<meta name="theme-color" content="#0B0E14">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Lewati ke konten</a>
+
+<nav class="site-nav is-solid"><div class="container">
+  <a href="/#top" class="brand"><img src="/img/falcom-logo-navbar.png" alt="Falcom Technology" class="brand-logo"></a>
+  <ul class="nav-links">
+    <li><a href="/#tentang">Tentang</a></li>
+    <li><a href="/#jaringan">Jaringan</a></li>
+    <li><a href="/products" class="is-active">Produk</a></li>
+    <li><a href="/#klien">Klien</a></li>
+    <li><a href="/#artikel">Artikel</a></li>
+    <li><a href="/#kontak">Kontak</a></li>
+  </ul>
+</div></nav>
+
+<main id="main">
+  <section class="product-detail">
+    <div class="container">
+      <a href="/products" class="back-to-catalog">&larr; Back to catalog</a>
+
+      <div class="product-detail__layout">
+        <div class="product-detail__gallery">
+          <div class="gallery-main">
+            <button type="button" class="gallery-nav prev" id="galPrev" aria-label="Foto sebelumnya">&lsaquo;</button>
+            <img id="galMainImg" src="" alt="">
+            <button type="button" class="gallery-nav next" id="galNext" aria-label="Foto berikutnya">&rsaquo;</button>
+          </div>
+          <div class="gallery-thumbs" id="galThumbs"></div>
+        </div>
+
+        <div class="product-detail__info">
+          <span class="product-detail__badge" id="prodCategory">Kategori</span>
+          <h1 id="prodName">Memuat...</h1>
+          <div class="product-detail__body" id="prodDescription"></div>
+
+          <p class="product-detail__meta">
+            <span>SKU: <strong id="prodSku">&mdash;</strong></span>
+            <span class="sep">|</span>
+            <span>Category: <strong id="prodCategoryText">&mdash;</strong></span>
+          </p>
+
+          <div class="product-detail__actions">
+            <a href="#quote" id="prodQuoteBtn" class="btn btn-primary">Request Quote</a>
+            <button type="button" id="prodAskBtn" class="btn btn-outline">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="1.8"/></svg>
+              Ask About Product
+            </button>
+            <button type="button" id="prodShareBtn" class="btn btn-outline">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M8.6 10.5l6.8-3.9M8.6 13.5l6.8 3.9" stroke="currentColor" stroke-width="1.8"/></svg>
+              Share
+            </button>
+          </div>
+
+          <div class="product-detail__trust">
+            <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" stroke="currentColor" stroke-width="1.7"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Original Warranty</span></div>
+            <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M1 3h13v13H1zM14 8h4l3 3v5h-7V8z" stroke="currentColor" stroke-width="1.7"/><circle cx="5.5" cy="18.5" r="1.8" stroke="currentColor" stroke-width="1.7"/><circle cx="17.5" cy="18.5" r="1.8" stroke="currentColor" stroke-width="1.7"/></svg><span>Nationwide Distribution</span></div>
+            <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 0118 0M3 12v5a2 2 0 002 2h1v-7H4a1 1 0 00-1 1zM21 12v5a2 2 0 01-2 2h-1v-7h2a1 1 0 011 1zM10 19h4a2 2 0 002-2" stroke="currentColor" stroke-width="1.7"/></svg><span>Technical Support</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-tabs">
+        <div class="product-tabs__nav">
+          <button type="button" class="tab-btn is-active" data-tab="specs">Specifications</button>
+          <button type="button" class="tab-btn" data-tab="features">Key Features</button>
+          <button type="button" class="tab-btn" data-tab="support">Support &amp; Warranty</button>
+          <a href="#" id="catalogueBtn" class="tab-btn tab-btn--download hidden" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3v13m0 0l-4-4m4 4l4-4M4 21h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download Catalogue
+          </a>
+        </div>
+
+        <div class="tab-panel is-active" data-panel="specs">
+          <div id="specsContent"></div>
+          <div class="specs-fallback hidden" id="specsFallback">
+            <p>Spesifikasi teknis belum tersedia. Hubungi tim sales untuk datasheet lengkap.</p>
+            <div class="specs-callout">
+              <div class="specs-callout__icon">?</div>
+              <div>
+                <strong>Confused about specs?</strong>
+                <p>Our engineers are ready to help you pick the right product.</p>
+                <a href="#quote" class="btn btn-primary btn-sm">Free Consultation</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-panel="features">
+          <ul class="features-list" id="featuresList"></ul>
+        </div>
+
+        <div class="tab-panel" data-panel="support">
+          <p><strong>Garansi Resmi</strong> &mdash; Semua produk yang didistribusikan Falcom Technology adalah original dan disertai garansi resmi dari pabrikan (durasi mengikuti kebijakan brand masing-masing, umumnya 1&ndash;3 tahun).</p>
+          <p><strong>Dukungan Teknis</strong> &mdash; Tim engineer bersertifikasi siap membantu perencanaan jaringan, instalasi, hingga troubleshooting. Konsultasi gratis untuk pembelian skala proyek.</p>
+          <p><strong>Pengiriman &amp; Stok</strong> &mdash; Distribusi nasional dari jaringan cabang kami untuk pengiriman cepat ke seluruh Indonesia.</p>
+        </div>
+      </div>
+
+      <div class="related-products">
+        <div class="eyebrow">You Might Like</div>
+        <h2 class="section-title">Related Products</h2>
+        <div class="product-grid" id="relatedGrid"></div>
+      </div>
+
+      <div class="quote-section" id="quote">
+        <div class="eyebrow">Minta Penawaran</div>
+        <h2 class="section-title">Request a Quote</h2>
+        <p class="section-lead">Isi form berikut dan tim sales Falcom akan menghubungi Anda secepatnya.</p>
+        <form class="quote-form" id="quoteForm">
+          <input type="text" name="name" placeholder="Nama lengkap" required>
+          <input type="text" name="company" placeholder="Perusahaan / ISP">
+          <input type="email" name="email" placeholder="Email" required>
+          <textarea name="message" placeholder="Kebutuhan Anda terkait produk ini..."></textarea>
+          <button type="submit" class="btn btn-primary">Kirim ke WhatsApp</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="container footer-row"><span>&copy; <span id="year"></span> Falcom Technology.</span><span>Elevate Connectivity Across Indonesia</span></div></footer>
+
+<!-- CHAT WIDGET -->
+<button class="chat-launcher" id="chatLauncher" aria-label="Buka live chat">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+<div class="chat-window" id="chatWindow" role="dialog" aria-label="Live chat Falcom Technology">
+  <div class="chat-head">
+    <div class="avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2a5 5 0 015 5v1a5 5 0 01-10 0V7a5 5 0 015-5zM4 21a8 8 0 0116 0" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+    <div><strong>Falcom Assistant</strong><span>Online</span></div>
+    <button class="chat-close" id="chatClose" aria-label="Tutup chat">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-quick" id="chatQuick">
+    <button data-q="Produk kabel fiber apa saja?">Produk kabel fiber</button>
+    <button data-q="Bagaimana cara order?">Cara order</button>
+    <button data-q="Di mana lokasi kantor?">Lokasi kantor</button>
+  </div>
+  <form class="chat-input" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Tulis pesan..." autocomplete="off" required>
+    <button type="submit" aria-label="Kirim">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </form>
+</div>
+
+<script src="/js/product-detail.js" defer></script>
+</body>
+</html>

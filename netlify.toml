@@ -1,0 +1,67 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+  command = "echo 'no build step needed'"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Public site API — Express sees these with the /api prefix stripped
+# (e.g. /api/hero-slides arrives at the function as /hero-slides).
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# Admin auth (login/logout) — kept OUTSIDE /admin/api/* on purpose:
+# /admin/api/* requires a valid session, so the login endpoint itself
+# can't live there (you're not logged in yet when you call it).
+[[redirects]]
+  from = "/admin/auth/*"
+  to = "/.netlify/functions/api/admin/auth/:splat"
+  status = 200
+
+# Admin CMS API — everything here requires the auth cookie.
+[[redirects]]
+  from = "/admin/api/*"
+  to = "/.netlify/functions/api/admin/api/:splat"
+  status = 200
+
+# Uploaded files (stored in Netlify Blobs, served back through a function).
+[[redirects]]
+  from = "/uploads/*"
+  to = "/.netlify/functions/serve-upload"
+  status = 200
+
+# Admin dashboard/login pages — plain static files under public/admin/.
+[[redirects]]
+  from = "/admin/login"
+  to = "/admin/login.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/dashboard.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/dashboard"
+  to = "/admin/dashboard.html"
+  status = 200
+
+# Product catalog + detail pages (client-side rendered, same pattern as before).
+[[redirects]]
+  from = "/products"
+  to = "/products.html"
+  status = 200
+
+[[redirects]]
+  from = "/products/*"
+  to = "/product.html"
+  status = 200
+
+# Article detail pages.
+[[redirects]]
+  from = "/artikel/*"
+  to = "/article.html"
+  status = 200

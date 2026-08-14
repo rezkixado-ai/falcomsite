@@ -1,0 +1,21 @@
+{
+  "name": "falcom-technology-netlify",
+  "version": "1.0.0",
+  "description": "Falcom Technology website — Netlify Functions + Turso (libSQL) + Netlify Blobs",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "db:init": "node scripts/init-db.js",
+    "db:seed": "node scripts/seed-db.js",
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.17.4",
+    "@netlify/blobs": "^10.7.12",
+    "bcryptjs": "^3.0.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.2.0",
+    "serverless-http": "^4.0.0"
+  }
+}
