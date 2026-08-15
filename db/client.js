@@ -1,4 +1,3 @@
-const { createClient } = require('@libsql/client');
 const path = require('path');
 
 // Production (and now recommended for local dev too): set TURSO_DATABASE_URL +
@@ -16,10 +15,22 @@ if (!process.env.TURSO_DATABASE_URL) {
   );
 }
 
-const localDbPath = path.join(process.cwd(), 'db', 'local.db');
-const client = createClient({
-  url: process.env.TURSO_DATABASE_URL || `file:${localDbPath}`,
-  authToken: process.env.TURSO_AUTH_TOKEN || undefined,
-});
+// Use the pure-JS "/web" client when connecting to a remote Turso DB (this is
+// what runs on Netlify Functions — the default client needs a native binding
+// like @libsql/linux-x64-gnu that doesn't survive the function bundling step,
+// which causes a Runtime.ImportModuleError / 502 on every endpoint).
+// Only fall back to the native-binding client for local `file:` DB dev.
+let client;
+if (process.env.TURSO_DATABASE_URL) {
+  const { createClient } = require('@libsql/client/web');
+  client = createClient({
+    url: process.env.TURSO_DATABASE_URL,
+    authToken: process.env.TURSO_AUTH_TOKEN || undefined,
+  });
+} else {
+  const { createClient } = require('@libsql/client');
+  const localDbPath = path.join(process.cwd(), 'db', 'local.db');
+  client = createClient({ url: `file:${localDbPath}` });
+}
 
 module.exports = client;
