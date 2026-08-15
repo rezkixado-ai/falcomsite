@@ -181,7 +181,8 @@
   let currentUploadedUrl = {};
 
   function fieldHTML(f, value) {
-    const val = value ?? f.default ?? '';
+    let val = value ?? f.default ?? '';
+    if (val === 'undefined' || val === 'null') val = '';
     if (f.type === 'textarea' || f.type === 'textarea-lg') {
       return `<label>${f.label}<textarea name="${f.name}" style="${f.type === 'textarea-lg' ? 'min-height:220px' : ''}">${val || ''}</textarea></label>`;
     }
@@ -274,7 +275,9 @@
         const res = await fetch('/admin/api/upload', { method: 'POST', body: fd });
         const data = await res.json();
         const hiddenName = input.dataset.uploadFor;
-        form.querySelector(`input[type=hidden][name="${hiddenName}"]`).value = data.url;
+        const hiddenInput = form.querySelector(`input[type=hidden][name="${hiddenName}"]`);
+        if (!data.url) { alert('Upload gagal: server tidak mengembalikan URL file.'); return; }
+        hiddenInput.value = data.url;
         input.parentElement.querySelector('img,video')?.remove();
         let preview;
         if (isVideoUrl(data.url) || file.type.startsWith('video/')) {
