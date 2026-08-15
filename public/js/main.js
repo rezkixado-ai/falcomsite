@@ -403,7 +403,7 @@
     const wrap = $('#statsGrid')?.closest('.stats-grid') || grid;
     if (!grid || !stats.length) return;
     grid.innerHTML = stats.map(s => `
-      <div class="stat-card">
+      <div class="stat-card${s.image_url ? ' has-bg' : ''}"${s.image_url ? ` style="--stat-bg:url('${s.image_url}')"` : ''}>
         <div class="stat-value"><span class="count" data-target="${s.value}">0</span>${s.suffix || ''}</div>
         <div class="stat-label">${s.label}</div>
       </div>`).join('');
