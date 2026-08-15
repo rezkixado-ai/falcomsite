@@ -126,14 +126,28 @@
           </select>
         </label>
 
-        <label>
-        Font Statistik (Hit Counter)
-        <input type="text" name="stats_font" placeholder="cth: Orbitron, Bebas Neue, JetBrains Mono">
-        </label>
-        <p class="hint" style="margin-top:-8px">
-         Ketik nama font apa aja dari <a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a>
-        (case-sensitive, sesuai nama resminya). Kosongkan untuk pakai font default (IBM Plex Mono).
-        </p>
+   <!-- Taruh field ini di dalam <form id="settingsForm">, ganti versi lama
+     (yang <input type="text">) kalau udah sempet dipaste. Name-nya
+     "stats_font" harus persis ini karena main.js baca state.settings.stats_font. -->
+<label>
+  Font Statistik (Hit Counter)
+  <select name="stats_font">
+    <option value="">Default — IBM Plex Mono</option>
+    <option value="Orbitron">Orbitron — futuristik, tebal</option>
+    <option value="Bebas Neue">Bebas Neue — condensed, tegas</option>
+    <option value="JetBrains Mono">JetBrains Mono — mono modern</option>
+    <option value="Space Grotesk">Space Grotesk — sama kayak font display situs</option>
+    <option value="Rajdhani">Rajdhani — teknis, ramping</option>
+    <option value="Oswald">Oswald — condensed klasik</option>
+    <option value="Chakra Petch">Chakra Petch — techy, angular</option>
+    <option value="Anton">Anton — super tebal, poster-style</option>
+    <option value="Sora">Sora — geometris, bersih</option>
+  </select>
+</label>
+<p class="hint" style="margin-top:-8px">
+  Pilih gaya font buat angka statistik (hit counter). Preview tiap font bisa dicek di
+  <a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a>.
+</p>
 
         
         <p class="hint" style="margin:-8px 0 4px">Toggle bahasa ID/EN saat ini baru berupa tombol switch di navbar (belum
