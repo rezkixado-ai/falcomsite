@@ -49,6 +49,7 @@
         { name: 'label', label: 'Label', type: 'text', required: true },
         { name: 'value', label: 'Nilai angka', type: 'number', required: true },
         { name: 'suffix', label: 'Akhiran (misal +)', type: 'text' },
+        { name: 'image_url', label: 'Foto latar card (opsional — kosongkan untuk polos putih)', type: 'image' },
         { name: 'sort_order', label: 'Urutan', type: 'number', default: 0 },
       ],
     },
