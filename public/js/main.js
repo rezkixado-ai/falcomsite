@@ -27,7 +27,15 @@
       renderContactInfo();
       applyNavStyle(state.settings.nav_style || 'default');
       applyStatsFont(state.settings.stats_font || '');
+      applyStatsRadius(state.settings.stats_radius);
     } catch (e) { console.warn('settings failed', e); }
+  }
+
+  // Lets the admin drag a slider (0–32px) to control how rounded the stat
+  // cards are — 0 = sharp rectangle (the new default), higher = softer corners.
+  function applyStatsRadius(px) {
+    const n = Number(px);
+    document.documentElement.style.setProperty('--stats-radius', `${Number.isFinite(n) ? n : 0}px`);
   }
 
   // Lets the admin type any Google Font family name into Settings (e.g.
@@ -123,10 +131,13 @@
   }
 
   /* ---------- Search (client-side, across cached articles + products) ---------- */
-  /* ---------- Why Falcom cards — click to select (glow), default = 3rd card ---------- */
+  /* ---------- Why Falcom cards — click to select (glow) ---------- */
   function initWhyFalcom() {
     const cards = $$('#whyFalcomGrid .why-card');
     if (!cards.length) return;
+    // No card is highlighted by default — only on hover/click. (Previously
+    // one card came pre-selected from the markup and stayed glowing forever.)
+    cards.forEach(c => c.classList.remove('is-selected'));
     cards.forEach(card => {
       card.addEventListener('click', () => {
         cards.forEach(c => c.classList.remove('is-selected'));
