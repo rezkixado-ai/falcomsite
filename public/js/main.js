@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const state = { settings: {}, waNumber: '', failLimit: 3, sessionId: null, unresolved: 0, escalated: false };
+  const state = { settings: {}, waNumber: '', failLimit: 3, sessionId: null, unresolved: 0, escalated: false, chatProducts: null };
 
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
@@ -695,10 +695,55 @@
     $('#chatBody').appendChild(wrap);
     $('#chatBody').scrollTop = $('#chatBody').scrollHeight;
   }
-  function chatEscalate(waLink) {
+  function chatEscalate() {
     const wrap = document.createElement('div');
     wrap.className = 'msg msg-escalate';
-    wrap.innerHTML = `Pertanyaan ini sebaiknya dijawab langsung oleh tim kami.<br><a href="${waLink}" target="_blank" rel="noopener" class="chat-wa-btn">Lanjut ke WhatsApp Admin</a>`;
+    wrap.innerHTML = `Pertanyaan ini sebaiknya dijawab langsung oleh tim kami.<br>
+      <button type="button" class="chat-wa-btn" id="chatRegionTrigger">Tanya Sales Wilayah di Kotamu</button>`;
+    $('#chatBody').appendChild(wrap);
+    $('#chatBody').scrollTop = $('#chatBody').scrollHeight;
+    $('#chatRegionTrigger').addEventListener('click', showRegionOptions, { once: true });
+  }
+
+  async function showRegionOptions() {
+    let regions = [];
+    try { regions = await getJSON('/api/chat-regions'); } catch (e) { console.warn(e); }
+    const wrap = document.createElement('div');
+    wrap.className = 'msg msg-bot msg-region-options';
+    if (!regions.length) {
+      wrap.textContent = 'Nomor sales wilayah belum tersedia — silakan hubungi kami lewat halaman Kontak.';
+    } else {
+      wrap.innerHTML = `<p>Pilih wilayah terdekat dengan lokasi Anda:</p>
+        <div class="chat-region-grid">
+          ${regions.map(r => {
+            const text = encodeURIComponent(`Halo Falcom, saya butuh bantuan sales untuk wilayah ${r.region_name}.`);
+            return `<a class="chat-region-btn" href="https://wa.me/${r.wa_number}?text=${text}" target="_blank" rel="noopener">${r.region_name}</a>`;
+          }).join('')}
+        </div>`;
+    }
+    $('#chatBody').appendChild(wrap);
+    $('#chatBody').scrollTop = $('#chatBody').scrollHeight;
+  }
+
+  async function showProductCarousel() {
+    if (!state.chatProducts) {
+      try { state.chatProducts = await getJSON('/api/products'); } catch (e) { state.chatProducts = []; }
+    }
+    const wrap = document.createElement('div');
+    wrap.className = 'msg msg-bot msg-carousel';
+    if (!state.chatProducts.length) {
+      wrap.textContent = 'Belum ada produk yang bisa ditampilkan saat ini.';
+    } else {
+      wrap.innerHTML = `<p>Berikut produk kami — klik untuk lihat info lengkapnya:</p>
+        <div class="chat-product-carousel">
+          ${state.chatProducts.map(p => `
+            <a class="chat-product-card" href="/products/${p.slug}" target="_blank" rel="noopener">
+              <img src="${p.image_url || '/img/product-1.svg'}" alt="${p.name}" loading="lazy">
+              <span class="name">${p.name}</span>
+              ${p.short_desc ? `<span class="desc">${p.short_desc}</span>` : ''}
+            </a>`).join('')}
+        </div>`;
+    }
     $('#chatBody').appendChild(wrap);
     $('#chatBody').scrollTop = $('#chatBody').scrollHeight;
   }
@@ -721,7 +766,7 @@
         body: JSON.stringify({ session_id: state.sessionId, message: text }),
       });
       chatMsg(data.reply, 'bot');
-      if (data.escalate) { state.escalated = true; chatEscalate(data.wa_link); }
+      if (data.escalate) { state.escalated = true; chatEscalate(); }
     } catch (e) { chatMsg('Koneksi terganggu, silakan coba lagi.', 'bot'); }
   }
 
@@ -746,6 +791,7 @@
     });
     $$('#chatQuick button').forEach(b => b.addEventListener('click', async () => {
       await ensureSession();
+      if (b.dataset.action === 'products') { showProductCarousel(); return; }
       sendChat(b.dataset.q);
     }));
   }
