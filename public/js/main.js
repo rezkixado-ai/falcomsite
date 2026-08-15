@@ -26,7 +26,25 @@
       state.failLimit = parseInt(state.settings.chat_fail_limit || '3', 10);
       renderContactInfo();
       applyNavStyle(state.settings.nav_style || 'default');
+      applyStatsFont(state.settings.stats_font || '');
     } catch (e) { console.warn('settings failed', e); }
+  }
+
+  // Lets the admin type any Google Font family name into Settings (e.g.
+  // "Orbitron", "Bebas Neue") and have it apply to the hit-counter numbers
+  // without a code change. Falls back to --font-mono if left blank.
+  function applyStatsFont(fontName) {
+    const name = (fontName || '').trim();
+    if (!name) return;
+    const linkId = 'stats-font-link';
+    if (!document.getElementById(linkId)) {
+      const link = document.createElement('link');
+      link.id = linkId;
+      link.rel = 'stylesheet';
+      link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(name).replace(/%20/g, '+')}:wght@400;600;700&display=swap`;
+      document.head.appendChild(link);
+    }
+    document.documentElement.style.setProperty('--font-stats', `'${name}', var(--font-mono)`);
   }
 
   // Alternate navbar template: swaps the "Hubungi Kami" button for an ID/EN
@@ -382,6 +400,7 @@
     let stats = [];
     try { stats = await getJSON('/api/stats'); } catch (e) { console.warn(e); }
     const grid = $('#statsGrid');
+    const wrap = $('#statsGrid')?.closest('.stats-grid') || grid;
     if (!grid || !stats.length) return;
     grid.innerHTML = stats.map(s => `
       <div class="stat-card">
@@ -390,14 +409,32 @@
       </div>`).join('');
 
     const counters = $$('.count', grid);
+    let loopTimer = null;
+
+    function playAll() {
+      wrap.classList.add('is-counting');
+      counters.forEach(c => animateCount(c));
+      setTimeout(() => wrap.classList.remove('is-counting'), 700);
+    }
+
+    function startLoop() {
+      if (loopTimer) return; // already looping
+      playAll();
+      loopTimer = setInterval(playAll, 5000);
+    }
+    function stopLoop() {
+      if (!loopTimer) return;
+      clearInterval(loopTimer);
+      loopTimer = null;
+    }
+
+    // threshold 0.4 + no unobserve: re-triggers whether the section scrolls
+    // into view from above or below, and stops (saving cycles) once it's
+    // fully out of view again.
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        animateCount(entry.target);
-        io.unobserve(entry.target);
-      });
+      entries.forEach(entry => (entry.isIntersecting ? startLoop() : stopLoop()));
     }, { threshold: 0.4 });
-    counters.forEach(c => io.observe(c));
+    io.observe(wrap);
   }
 
   function animateCount(el) {
