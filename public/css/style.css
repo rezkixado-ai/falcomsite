@@ -273,12 +273,27 @@ section{padding:96px 0}
 }
 @media (max-width:800px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
 .stat-card{
-  background:var(--white);padding:34px 26px;text-align:left;border-radius:var(--radius);
+  position:relative;overflow:hidden;background:var(--white);padding:34px 26px;text-align:left;border-radius:var(--radius);
   border:1px solid rgba(230,0,18,.35);
   box-shadow:0 0 0 1px rgba(230,0,18,.06),0 0 18px rgba(230,0,18,.14),0 0 36px rgba(230,0,18,.06);
-  transition:box-shadow .3s var(--ease),transform .3s var(--ease);
+  transition:box-shadow .3s var(--ease),transform .3s var(--ease),background-image .45s var(--ease);
 }
 .stat-card:hover{transform:translateY(-2px)}
+
+/* Optional per-card photo (set via admin) — sits under a white tint at rest
+   so it reads as "clean/white" like the rest of the section, then a red
+   gradient takes over on hover with the text flipping to white. */
+.stat-card.has-bg{
+  background-image:linear-gradient(175deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.86) 45%,rgba(255,255,255,.68) 100%),var(--stat-bg);
+  background-size:cover;background-position:center;
+}
+.stat-card.has-bg:hover{
+  background-image:linear-gradient(175deg,rgba(180,0,14,.35) 0%,rgba(230,0,18,.72) 55%,rgba(180,0,14,.88) 100%),var(--stat-bg);
+}
+.stat-card.has-bg:hover .stat-value,
+.stat-card.has-bg:hover .stat-label{color:#fff;transition:color .3s var(--ease)}
+.stat-value,.stat-label{transition:color .3s var(--ease)}
+
 .stat-value{font-family:var(--font-stats);font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;color:var(--red);display:flex;align-items:baseline;gap:2px}
 .stat-label{margin-top:8px;color:var(--steel);font-size:.92rem}
 
