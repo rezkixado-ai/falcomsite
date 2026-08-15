@@ -784,7 +784,37 @@ section{padding:96px 0}
 .chat-input{display:flex;gap:8px;padding:14px;border-top:1px solid var(--border)}
 .chat-input input{flex:1;border:1px solid var(--border);border-radius:999px;padding:11px 16px;font-size:.87rem;font-family:inherit}
 .chat-input button{width:42px;height:42px;border-radius:50%;background:var(--ink);color:var(--white);border:0;display:flex;align-items:center;justify-content:center;flex:none}
-.chat-wa-btn{display:inline-flex;align-items:center;gap:8px;margin-top:8px;background:#25D366;color:#fff;padding:9px 14px;border-radius:6px;font-size:.8rem;font-weight:600}
+.chat-wa-btn{
+  display:inline-flex;align-items:center;gap:8px;margin-top:8px;background:#25D366;color:#fff;
+  padding:9px 14px;border-radius:6px;font-size:.8rem;font-weight:600;border:0;font-family:inherit;cursor:pointer;
+  transition:filter .2s;
+}
+.chat-wa-btn:hover{filter:brightness(1.06)}
+
+/* In-chat product carousel */
+.msg-carousel{max-width:100%;align-self:stretch;background:none;border:0;padding:0}
+.msg-carousel p{margin:0 0 8px;color:var(--steel);font-size:.82rem}
+.chat-product-carousel{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x proximity}
+.chat-product-card{
+  flex:0 0 132px;scroll-snap-align:start;display:flex;flex-direction:column;background:var(--white);
+  border:1px solid var(--border);border-radius:10px;overflow:hidden;text-decoration:none;color:var(--ink);
+  transition:border-color .25s,transform .25s;
+}
+.chat-product-card:hover{border-color:var(--red);transform:translateY(-2px)}
+.chat-product-card img{width:100%;height:88px;object-fit:cover;background:var(--offwhite)}
+.chat-product-card .name{font-size:.76rem;font-weight:600;padding:8px 8px 2px;line-height:1.3}
+.chat-product-card .desc{font-size:.68rem;color:var(--steel);padding:0 8px 8px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* Regional WA picker (shown after 3 unresolved answers) */
+.msg-region-options{max-width:100%;align-self:stretch;background:none;border:0;padding:0}
+.msg-region-options p{margin:0 0 8px;color:var(--steel);font-size:.82rem}
+.chat-region-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.chat-region-btn{
+  display:flex;align-items:center;justify-content:center;text-align:center;gap:6px;
+  background:#25D366;color:#fff;padding:10px 8px;border-radius:8px;font-size:.78rem;font-weight:600;
+  text-decoration:none;transition:filter .2s,transform .2s;
+}
+.chat-region-btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
 
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.is-visible{opacity:1;transform:translateY(0)}
