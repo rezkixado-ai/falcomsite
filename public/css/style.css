@@ -272,11 +272,16 @@ section{padding:96px 0}
   margin-top:88px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
 }
 @media (max-width:800px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+:root{
+  /* Overridden at runtime by main.js from the admin "Kelengkungan Sudut Card
+     Statistik" slider. 0 = sharp rectangle (default look). */
+  --stats-radius:0px;
+}
 .stat-card{
-  position:relative;overflow:hidden;background:var(--white);padding:34px 26px;text-align:left;border-radius:var(--radius);
+  position:relative;overflow:hidden;background:var(--white);padding:34px 26px;text-align:left;border-radius:var(--stats-radius);
   border:1px solid rgba(230,0,18,.35);
   box-shadow:0 0 0 1px rgba(230,0,18,.06),0 0 18px rgba(230,0,18,.14),0 0 36px rgba(230,0,18,.06);
-  transition:box-shadow .3s var(--ease),transform .3s var(--ease),background-image .45s var(--ease);
+  transition:box-shadow .3s var(--ease),transform .3s var(--ease),background-image .45s var(--ease),border-radius .3s var(--ease);
 }
 .stat-card:hover{transform:translateY(-2px)}
 
@@ -329,9 +334,11 @@ section{padding:96px 0}
 }
 .why-card:not(.is-selected):not(:hover){opacity:.72;filter:saturate(.85)}
 .why-card__icon{
-  width:56px;height:56px;border-radius:12px;background:var(--offwhite);color:var(--steel);
-  display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:background .3s,color .3s;
+  width:64px;height:64px;border-radius:14px;background:var(--offwhite);color:var(--steel);
+  display:flex;align-items:center;justify-content:center;margin-bottom:22px;transition:background .3s,color .3s,transform .3s;
 }
+.why-card__icon svg{width:30px;height:30px;stroke-width:1.75}
+.why-card:hover .why-card__icon,.why-card.is-selected .why-card__icon{transform:scale(1.06)}
 .why-card.is-selected .why-card__icon,.why-card:hover .why-card__icon{background:var(--red);color:var(--white)}
 .why-card h3{font-size:1rem;font-weight:600;margin:0 0 8px;color:var(--ink);transition:color .3s}
 .why-card.is-selected h3,.why-card:hover h3{color:var(--red)}
