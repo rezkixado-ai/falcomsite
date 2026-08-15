@@ -427,10 +427,14 @@
       }
     });
     $('#navOpacityValue').textContent = form.querySelector('[name=nav_opacity]').value;
+    const radiusVal = $('#statsRadiusValue');
+    const radiusInput = form.querySelector('[name=stats_radius]');
+    if (radiusVal && radiusInput) radiusVal.textContent = radiusInput.value + 'px';
     $$('input[type=file][data-upload-for]', form).forEach(input => wireImageUpload(input, form));
   }
   $('#settingsForm').addEventListener('input', (e) => {
     if (e.target.name === 'nav_opacity') $('#navOpacityValue').textContent = e.target.value;
+    if (e.target.name === 'stats_radius') $('#statsRadiusValue').textContent = e.target.value + 'px';
   });
   $('#settingsForm').addEventListener('submit', async (e) => {
     e.preventDefault();
