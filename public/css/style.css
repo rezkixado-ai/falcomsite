@@ -17,6 +17,9 @@
   --font-display:'Space Grotesk',system-ui,sans-serif;
   --font-body:'Inter',system-ui,sans-serif;
   --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  /* Overridden at runtime by main.js from the admin "Font Statistik" setting.
+     Falls back to --font-mono if no custom font is configured. */
+  --font-stats:var(--font-mono);
 
   --container:1240px;
   --radius:14px;
@@ -267,12 +270,19 @@ section{padding:96px 0}
 
 .stats-grid{
   margin-top:88px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
-  background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
+  background:var(--border);border:1px solid rgba(230,0,18,.35);border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 0 0 1px rgba(230,0,18,.08),0 0 22px rgba(230,0,18,.16),0 0 46px rgba(230,0,18,.08);
 }
 @media (max-width:800px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
-.stat-card{background:var(--white);padding:34px 26px;text-align:left}
-.stat-value{font-family:var(--font-mono);font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;color:var(--red);display:flex;align-items:baseline;gap:2px}
+.stat-card{background:var(--white);padding:34px 26px;text-align:left;transition:background .3s var(--ease)}
+.stat-value{font-family:var(--font-stats);font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:600;color:var(--red);display:flex;align-items:baseline;gap:2px}
 .stat-label{margin-top:8px;color:var(--steel);font-size:.92rem}
+
+/* Pulses briefly while the counter is (re)playing — toggled by main.js */
+.stats-grid.is-counting{
+  box-shadow:0 0 0 1px rgba(230,0,18,.18),0 0 30px rgba(230,0,18,.28),0 0 60px rgba(230,0,18,.14);
+  transition:box-shadow .6s var(--ease);
+}
 
 /* ===== Why Falcom — 4 feature cards ===== */
 .why-falcom{background:var(--white)}
