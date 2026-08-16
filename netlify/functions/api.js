@@ -110,6 +110,11 @@ publicRouter.get('/products/:slug', async (req, res) => {
   res.json(r.rows[0]);
 });
 
+publicRouter.get('/chat-regions', async (req, res) => {
+  const r = await client.execute('SELECT * FROM chat_regions ORDER BY sort_order ASC, id ASC');
+  res.json(r.rows);
+});
+
 publicRouter.post('/chat/session', chatbot.createSession);
 publicRouter.post('/chat/message', chatbot.sendMessage);
 
