@@ -729,23 +729,46 @@
     if (!state.chatProducts) {
       try { state.chatProducts = await getJSON('/api/products'); } catch (e) { state.chatProducts = []; }
     }
+    const products = state.chatProducts;
     const wrap = document.createElement('div');
     wrap.className = 'msg msg-bot msg-carousel';
-    if (!state.chatProducts.length) {
+    if (!products.length) {
       wrap.textContent = 'Belum ada produk yang bisa ditampilkan saat ini.';
-    } else {
-      wrap.innerHTML = `<p>Berikut produk kami — klik untuk lihat info lengkapnya:</p>
-        <div class="chat-product-carousel">
-          ${state.chatProducts.map(p => `
-            <a class="chat-product-card" href="/products/${p.slug}" target="_blank" rel="noopener">
+      $('#chatBody').appendChild(wrap);
+      $('#chatBody').scrollTop = $('#chatBody').scrollHeight;
+      return;
+    }
+    wrap.innerHTML = `<p>Produk unggulan kami — otomatis berganti tiap beberapa detik:</p>
+      <div class="chat-product-slider">
+        <div class="chat-product-slider__track">
+          ${products.map(p => `
+            <a class="chat-product-slide" href="/products/${p.slug}" target="_blank" rel="noopener">
               <img src="${p.image_url || '/img/product-1.svg'}" alt="${p.name}" loading="lazy">
               <span class="name">${p.name}</span>
               ${p.short_desc ? `<span class="desc">${p.short_desc}</span>` : ''}
             </a>`).join('')}
-        </div>`;
-    }
+        </div>
+        <div class="chat-product-slider__dots">
+          ${products.map((_, i) => `<span class="dot${i === 0 ? ' is-active' : ''}"></span>`).join('')}
+        </div>
+      </div>`;
     $('#chatBody').appendChild(wrap);
     $('#chatBody').scrollTop = $('#chatBody').scrollHeight;
+
+    // Auto-advance every ~3.2s, pauses on hover so people can actually read/click.
+    const slider = $('.chat-product-slider', wrap);
+    const track = $('.chat-product-slider__track', slider);
+    const dots = $$('.dot', slider);
+    let idx = 0;
+    function render() {
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    }
+    function next() { idx = (idx + 1) % products.length; render(); }
+    let timer = setInterval(next, 3200);
+    slider.addEventListener('mouseenter', () => clearInterval(timer));
+    slider.addEventListener('mouseleave', () => { timer = setInterval(next, 3200); });
+    dots.forEach((d, i) => d.addEventListener('click', () => { idx = i; render(); }));
   }
 
   async function ensureSession() {
