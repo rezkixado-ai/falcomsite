@@ -69,6 +69,13 @@ CREATE TABLE IF NOT EXISTS chatbot_qa (
   active INTEGER DEFAULT 1
 );
 
+CREATE TABLE IF NOT EXISTS chat_regions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  region_name TEXT NOT NULL,
+  wa_number TEXT NOT NULL,
+  sort_order INTEGER DEFAULT 0
+);
+ 
 CREATE TABLE IF NOT EXISTS chat_sessions (
   id TEXT PRIMARY KEY,
   name TEXT,
