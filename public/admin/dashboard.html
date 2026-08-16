@@ -25,6 +25,7 @@
       <button data-panel="testimonials">Testimoni</button>
       <button data-panel="articles">Artikel</button>
       <button data-panel="chatbot">Chatbot Q&amp;A</button>
+      <button data-panel="chat_regions">Sales Wilayah (Chat)</button>
       <button data-panel="chatlogs">Log Chat</button>
       <button data-panel="settings">Pengaturan</button>
     </nav>
@@ -100,7 +101,16 @@
     <section class="panel" data-panel="chatbot">
       <div class="panel-head"><p>Latih chatbot: setiap entri punya kata kunci (pisahkan koma) dan jawaban. Semakin banyak entri, semakin pintar chatbot.</p><button class="btn-solid" data-add="chatbot_qa">+ Tambah Respons</button></div>
       <div id="chatbotList" class="list"></div>
+    
     </section>
+    <section class="panel" data-panel="chat_regions">
+    <div class="panel-head">
+      <p>4 nomor WA sales wilayah yang muncul di live chat setelah 3x bot gagal menjawab.</p>
+      <button class="btn-solid" data-add="chat_regions">+ Tambah Wilayah</button>
+    </div>
+  <div id="chatRegionsList" class="list"></div>
+  </section>
+    
 
     <section class="panel" data-panel="chatlogs">
       <div class="panel-head"><p>Riwayat percakapan pengunjung dengan chatbot.</p></div>
